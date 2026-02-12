@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adaptive Training Engine | Fitaura</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        h1,
+        h2,
+        h3 {
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            background: #334155;
+            border: 1px solid #475569;
+            border-radius: 0.5rem;
+            color: white;
+            margin-bottom: 1rem;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .result-box {
+            background: #334155;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            background: #64748b;
+        }
+
+        .badge.green {
+            background: #22c55e;
+            color: #022c22;
+        }
+
+        .badge.red {
+            background: #ef4444;
+            color: #450a0a;
+        }
+
+        .explanation {
+            border-left: 3px solid var(--primary);
+            padding-left: 1rem;
+            margin: 0.5rem 0;
+            font-style: italic;
+            color: #cbd5e1;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>⚡ Adaptive Training Engine</h1>
+    <p>Simulate daily check-ins to see how the engine adjusts your workout.</p>
+
+    <div class="container">
+        <!-- Input Column -->
+        <div class="card">
+            <h2>📝 Daily Check-in</h2>
+
+            <label>Sleep Quality (1-10 hours)</label>
+            <input type="number" id="sleep" value="7" min="1" max="12">
+
+            <label>Soreness Level (1-5)</label>
+            <select id="soreness">
+                <option value="1">1 - Fresh</option>
+                <option value="2" selected>2 - Normal</option>
+                <option value="3">3 - Stiff</option>
+                <option value="4">4 - Sore</option>
+                <option value="5">5 - Painful</option>
+            </select>
+
+            <label>Stress Level</label>
+            <select id="stress">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+
+            <label>Pain / Injury (Optional)</label>
+            <select id="pain">
+                <option value="">None</option>
+                <option value="knees">Knee Pain</option>
+                <option value="shoulders">Shoulder Pain</option>
+                <option value="lower_back">Lower Back Pain</option>
+            </select>
+
+            <label>Last Session RPE (1-10)</label>
+            <input type="number" id="rpe" value="8" min="1" max="10">
+
+            <button onclick="generateWorkout()">Generate Adaptive Workout</button>
+        </div>
+
+        <!-- Output Column -->
+        <div id="output" class="card" style="opacity: 0.5; pointer-events: none;">
+            <h2>📊 Today's Plan</h2>
+            <div class="metric">
+                <span>Readiness Score</span>
+                <span id="readiness-badge" class="badge">--</span>
+            </div>
+
+            <div id="explanations"></div>
+
+            <h3>Workout</h3>
+            <div id="error-message" style="color: #ef4444; margin-bottom: 1rem; display: none;"></div>
+            <div id="workout-list" class="result-box">
+                Hit 'Generate' to see the workout...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function generateWorkout() {
+            const sleepInput = document.getElementById('sleep');
+            const sleep = parseFloat(sleepInput.value);
+            const soreness = parseInt(document.getElementById('soreness').value);
+            const stress = document.getElementById('stress').value;
+            const pain = document.getElementById('pain').value;
+            const rpeInput = document.getElementById('rpe');
+            const rpe = parseFloat(rpeInput.value);
+
+            // Validation
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.style.display = 'none';
+            errorDiv.textContent = '';
+
+            let errors = [];
+            if (isNaN(sleep) || sleep < 0 || sleep > 24) {
+                errors.push("Sleep must be between 0 and 24 hours.");
+            }
+            if (isNaN(rpe) || rpe < 1 || rpe > 10) {
+                errors.push("RPE must be between 1 and 10.");
+            }
+
+            if (errors.length > 0) {
+                errorDiv.innerHTML = errors.join('<br>');
+                errorDiv.style.display = 'block';
+                return; // Stop execution
+            }
+
+            const payload = {
+                user: { id: "u1", name: "Demo User" },
+                plannedWorkout: {
+                    id: "w1", userId: "u1", name: "Full Body Power",
+                    exercises: [
+                        { id: "sq", name: "Barbell Squat", type: "compound", muscleGroups: ["quads"], weight: 100, sets: 3, reps: 5, rpeTarget: 8 },
+                        { id: "bp", name: "Bench Press", type: "compound", muscleGroups: ["chest"], weight: 80, sets: 3, reps: 5, rpeTarget: 8 },
+                        { id: "row", name: "Barbell Row", type: "compound", muscleGroups: ["back"], weight: 70, sets: 3, reps: 8, rpeTarget: 8 }
+                    ]
+                },
+                feedback: {
+                    sleepQuality: sleep,
+                    soreness: soreness,
+                    stressLevel: stress,
+                    painFlags: pain ? [pain] : []
+                },
+                history: [
+                    { exerciseId: "sq", weight: 100, completedReps: 5, completedSets: 3, rpe: rpe },
+                    { exerciseId: "bp", weight: 80, completedReps: 5, completedSets: 3, rpe: rpe },
+                    { exerciseId: "row", weight: 70, completedReps: 8, completedSets: 3, rpe: rpe }
+                ]
+            };
+
+            try {
+                const response = await fetch('/api/workout/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+                renderResult(result.data);
+            } catch (err) {
+                alert("Error connecting to server. Make sure node server.js is running!");
+                console.error(err);
+            }
+        }
+
+        function renderResult(data) {
+            const out = document.getElementById('output');
+            out.style.opacity = '1';
+
+            // Readiness
+            const badge = document.getElementById('readiness-badge');
+            badge.textContent = data.readinessScore + '/100';
+            badge.className = `badge ${data.readinessScore >= 80 ? 'green' : data.readinessScore < 50 ? 'red' : ''}`;
+
+            // Explanations
+            const expDiv = document.getElementById('explanations');
+            expDiv.innerHTML = data.explanations.map(e => `<div class="explanation">${e}</div>`).join('');
+
+            // Workout List
+            const list = document.getElementById('workout-list');
+            list.innerHTML = data.workout.exercises.map(ex =>
+                `<div><strong>${ex.name}</strong>: ${ex.weight}kg x ${ex.sets} sets x ${ex.reps} reps</div>`
+            ).join('<hr style="border-color: #475569; margin: 0.5rem 0;">');
+        }
+    </script>
+</body>
+
+</html>

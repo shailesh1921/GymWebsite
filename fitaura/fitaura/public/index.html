@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitaura | Experience</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* Premium Dark Palette */
+            --bg-deep: #050505;
+            --bg-surface: #0a0a0a;
+            --bg-glass: rgba(20, 20, 20, 0.6);
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-highlight: rgba(255, 255, 255, 0.15);
+
+            --text-primary: #f2f2f2;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+
+            --accent-primary: #e2e2e2;
+            --accent-secondary: #a0a0a0;
+
+            --linear-gradient-text: linear-gradient(135deg, #fff 0%, #888 100%);
+
+            --radius-xl: 24px;
+            --radius-lg: 16px;
+            --radius-sm: 8px;
+
+            --font-main: 'Outfit', sans-serif;
+            --sidebar-width: 280px;
+
+            /* Legacy mappings to prevent breakage */
+            --bg-base: var(--bg-deep);
+            --card-bg: var(--bg-glass);
+            --card-border: var(--border-subtle);
+            --text-main: var(--text-primary);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Noise Texture Background */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        body {
+            background-image:
+                radial-gradient(circle at 15% 50%, rgba(40, 40, 40, 0.05), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(50, 50, 50, 0.05), transparent 25%);
+        }
+
+        /* Sidebar - Friendly Pill */
+        .sidebar {
+            width: var(--sidebar-width);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+        }
+
+        .sidebar-container {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-xl);
+            height: 100%;
+            /* Full height */
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            box-shadow: none;
+            /* Removed heavy shadow */
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 3rem;
+            color: var(--text-primary);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo span {
+            /* Using image instead or simple dot */
+            display: none;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .nav-item {
+            padding: 1.25rem;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            /* Bouncy transition */
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: transparent;
+        }
+
+        .nav-item:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+            transform: scale(1.02);
+        }
+
+        .nav-item.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            font-weight: 600;
+            border: 1px solid var(--border-subtle);
+            transform: none;
+        }
+
+        /* Section Toggling */
+        .section {
+            display: none;
+            animation: fadeInSection 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeInSection {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        /* Glass Header */
+        .glass-header {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            border-radius: var(--radius-xl);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fff 0%, #e0e0e0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .header-bg-icon {
+            font-size: 3rem;
+            opacity: 0.2;
+        }
+
+        /* Bento Grid */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Friendly Cards */
+        .card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-xl);
+            padding: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 320px;
+        }
+
+        .card:hover {
+            border-color: var(--border-highlight);
+            transform: translateY(-5px);
+            background: rgba(40, 40, 40, 0.6);
+        }
+
+        .card-img {
+            flex: 1;
+            width: 100%;
+            border-radius: var(--radius-lg);
+            margin-bottom: 1.5rem;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-img::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .pill-tag {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        /* Exercise Modal - Friendly */
+        .exercise-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 16, 32, 0.8);
+            backdrop-filter: blur(15px);
+            z-index: 100;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: rgba(30, 30, 50, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-xl);
+            width: 800px;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 3rem;
+            position: relative;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+            animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            background: white;
+            color: black;
+            transform: rotate(90deg);
+        }
+
+        .exercise-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .exercise-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: scale(1.02);
+        }
+
+        /* Diet & Cardio Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+            padding: 2rem;
+            border-radius: var(--radius-xl);
+            text-align: center;
+            border: 1px solid var(--card-border);
+        }
+
+        .stat-val {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* AI Coach - Friendly Chat */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 70vh;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 2.5rem;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 1.5rem;
+            padding: 1.25rem 1.75rem;
+            border-radius: 20px;
+            font-size: 1.05rem;
+            max-width: 75%;
+            line-height: 1.6;
+        }
+
+        .message.bot {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.user {
+            background: linear-gradient(135deg, #7000ff, #00c3ff);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+            margin-left: auto;
+            box-shadow: 0 8px 20px rgba(112, 0, 255, 0.3);
+        }
+
+        .chat-input-area {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .chat-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 1.25rem 2rem;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .chat-input:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #00c3ff;
+            box-shadow: 0 0 0 4px rgba(0, 195, 255, 0.1);
+        }
+
+        .chat-send {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: white;
+            color: #7000ff;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .chat-send:hover {
+            transform: scale(1.1) rotate(-10deg);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-container">
+            <div class="logo">
+                <img src="logo.png" alt="Logo" style="width: 32px; height: 32px; border-radius: 4px;">
+                FITAURA
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item active" onclick="switchSection('strength', this)">
+                    <span>💪</span> Strength
+                </li>
+                <li class="nav-item" onclick="switchSection('diet', this)">
+                    <span>🥑</span> Nutrition
+                </li>
+                <li class="nav-item" onclick="switchSection('cardio', this)">
+                    <span>⚡</span> Cardio
+                </li>
+                <li class="nav-item" onclick="switchSection('ai-coach', this)">
+                    <span>✨</span> AI Coach
+                </li>
+                <li class="nav-item" onclick="switchSection('desi-ninja', this)">
+                    <span>🍛</span> Desi Food Ninja
+                </li>
+            </ul>
+
+            <!-- Gamification: Streak -->
+            <div
+                style="margin-top: auto; padding-top: 2rem; border-top: 1px solid var(--border-subtle); text-align: center;">
+                <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">Current Streak</div>
+                <div
+                    style="font-size: 2rem; font-weight: 800; color: #ff9a9e; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                    <span id="streak-count">0</span> <span>🔥</span>
+                </div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem;">Keep the fire burning!
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Strength Section -->
+        <div id="strength" class="section active">
+            <div class="glass-header">
+                <div class="header">
+                    <h1>Strength Studio</h1>
+                    <p>Curated workouts for a stronger you.</p>
+                </div>
+                <div class="header-bg-icon">🏋️‍♂️</div>
+            </div>
+
+            <div class="bento-grid">
+                <!-- Strength cards with new 3D images -->
+                <div class="card" onclick="openExerciseModal('Chest')">
+                    <div class="pill-tag">Push</div>
+                    <div class="card-img" style="background-image: url('images/workouts/chest.png');">
+                    </div>
+                    <h3>Chest Day</h3>
+                    <p>Pectorals & Triceps</p>
+                </div>
+                <div class="card" onclick="openExerciseModal('Back')">
+                    <div class="pill-tag">Pull</div>
+                    <div class="card-img" style="background-image: url('images/workouts/back.png');">
+                    </div>
+                    <h3>Back & Biceps</h3>
+                    <p>Lats & Rhomboids</p>
+                </div>
+                <div class="card" onclick="openExerciseModal('Legs')">
+                    <div class="pill-tag">Legs</div>
+                    <div class="card-img" style="background-image: url('images/workouts/legs.png');">
+                    </div>
+                    <h3>Leg Day</h3>
+                    <p>Quads, Hams & Glutes</p>
+                </div>
+                <div class="card" onclick="openExerciseModal('Shoulders')">
+                    <div class="pill-tag">Push</div>
+                    <div class="card-img" style="background-image: url('images/workouts/shoulders.png');">
+                    </div>
+                    <h3>Shoulders</h3>
+                    <p>Delts & Stability</p>
+                </div>
+                <div class="card" onclick="openExerciseModal('Arms')">
+                    <div class="pill-tag">Isolation</div>
+                    <div class="card-img" style="background-image: url('images/workouts/arms.png');">
+                    </div>
+                    <h3>Arm Farm</h3>
+                    <p>Biceps & Triceps</p>
+                </div>
+                <div class="card" onclick="openExerciseModal('Core')">
+                    <div class="pill-tag">Core</div>
+                    <div class="card-img" style="background-image: url('images/workouts/core.png');">
+                    </div>
+                    <h3>Core Power</h3>
+                    <p>Abs & Obliques</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Diet Section -->
+        <div id="diet" class="section">
+            <div class="glass-header">
+                <div class="header">
+                    <h1>Nutrition Engine</h1>
+                    <p>Research-backed Indian Diet Protocol.</p>
+                </div>
+                <div class="header-bg-icon">🥗</div>
+            </div>
+
+            <!-- Input Form -->
+            <div id="diet-input-form"
+                style="max-width: 600px; margin: 0 auto; background: rgba(255,255,255,0.03); padding: 2rem; border-radius: 24px; border: 1px solid var(--card-border);">
+                <h3 style="margin-bottom: 2rem; text-align: center; font-size: 1.5rem;">Initialize Your Plan</h3>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div class="input-group">
+                        <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Age</label>
+                        <input type="number" id="age" placeholder="25"
+                            style="width: 100%; padding: 1rem; border-radius: 12px; border: 1px solid var(--card-border); background: rgba(0,0,0,0.2); color: white;">
+                    </div>
+                    <div class="input-group">
+                        <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Gender</label>
+                        <select id="gender"
+                            style="width: 100%; padding: 1rem; border-radius: 12px; border: 1px solid var(--card-border); background: rgba(0,0,0,0.2); color: white;">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Height
+                            (cm)</label>
+                        <input type="number" id="height" placeholder="175"
+                            style="width: 100%; padding: 1rem; border-radius: 12px; border: 1px solid var(--card-border); background: rgba(0,0,0,0.2); color: white;">
+                    </div>
+                    <div class="input-group">
+                        <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Weight
+                            (kg)</label>
+                        <input type="number" id="weight" placeholder="70"
+                            style="width: 100%; padding: 1rem; border-radius: 12px; border: 1px solid var(--card-border); background: rgba(0,0,0,0.2); color: white;">
+                    </div>
+                </div>
+
+                <div class="input-group" style="margin-top: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Activity
+                        Level</label>
+                    <select id="activity"
+                        style="width: 100%; padding: 1rem; border-radius: 12px; border: 1px solid var(--card-border); background: rgba(0,0,0,0.2); color: white;">
+                        <option value="1.2">Sedentary (Office job)</option>
+                        <option value="1.375">Lightly Active (1-3 days/week)</option>
+                        <option value="1.55">Moderately Active (3-5 days/week)</option>
+                        <option value="1.725">Very Active (6-7 days/week)</option>
+                    </select>
+                </div>
+
+                <div class="input-group" style="margin-top: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Primary Goal</label>
+                    <select id="goal"
+                        style="width: 100%; padding: 1rem; border-radius: 12px; border: 1px solid var(--card-border); background: rgba(0,0,0,0.2); color: white;">
+                        <option value="fat_loss">Fat Loss (Deficit)</option>
+                        <option value="muscle_gain">Muscle Gain (Surplus)</option>
+                        <option value="strength">Strength & Maintenance</option>
+                    </select>
+                </div>
+
+                <div class="input-group" style="margin-top: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Preference</label>
+                    <select id="preference"
+                        style="width: 100%; padding: 1rem; border-radius: 12px; border: 1px solid var(--card-border); background: rgba(0,0,0,0.2); color: white;">
+                        <option value="veg">Vegetarian</option>
+                        <option value="non_veg">Non-Vegetarian</option>
+                        <option value="egg">Eggetarian</option>
+                    </select>
+                </div>
+
+                <button onclick="calculateDiet()"
+                    style="width: 100%; margin-top: 2rem; padding: 1.2rem; border-radius: 50px; background: linear-gradient(135deg, #7000ff, #00c3ff); color: white; border: none; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: transform 0.2s;">
+                    Generat Diet Plan ⚡
+                </button>
+            </div>
+
+            <!-- Diet Result (Hidden initially) -->
+            <div id="diet-result" style="display: none; animation: fadeIn 0.5s ease;">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-val" id="res-calories">--</span>
+                        <span class="stat-label">Daily Calories</span>
+                    </div>
+                    <div class="stat-card">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span class="stat-label">Protein</span>
+                            <span style="color: #00c3ff; font-weight: bold;" id="res-protein">--</span>
+                        </div>
+                        <div
+                            style="width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;">
+                            <div id="bar-protein"
+                                style="width: 0%; height: 100%; background: #00c3ff; transition: width 1s ease;"></div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span class="stat-label">Carbs</span>
+                            <span style="color: #7000ff; font-weight: bold;" id="res-carbs">--</span>
+                        </div>
+                        <div
+                            style="width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;">
+                            <div id="bar-carbs"
+                                style="width: 0%; height: 100%; background: #7000ff; transition: width 1s ease;"></div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span class="stat-label">Fats</span>
+                            <span style="color: #ff0080; font-weight: bold;" id="res-fats">--</span>
+                        </div>
+                        <div
+                            style="width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;">
+                            <div id="bar-fats"
+                                style="width: 0%; height: 100%; background: #ff0080; transition: width 1s ease;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <div
+                        style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(255,255,255,0.1); border-radius: 50px; color: var(--text-muted);">
+                        BMI: <span id="res-bmi" style="color: white; font-weight: 700;">--</span> • Status: <span
+                            id="res-status" style="color: white; font-weight: 700;">--</span>
+                    </div>
+                    <button
+                        onclick="document.getElementById('diet-result').style.display='none'; document.getElementById('diet-input-form').style.display='block';"
+                        style="margin-left: 1rem; background: none; border: 1px solid rgba(255,255,255,0.2); color: white; padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer;">Recalculate</button>
+                </div>
+
+                <div class="bento-grid" id="meal-container">
+                    <!-- Meals injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Cardio Section -->
+        <div id="cardio" class="section">
+            <div class="glass-header">
+                <div class="header">
+                    <h1>Cardio Flow</h1>
+                    <p>Keep your heart happy and healthy.</p>
+                </div>
+                <div class="header-bg-icon">🏃</div>
+            </div>
+
+            <div class="bento-grid">
+                <div class="card" onclick="openCardioModal('LISS')">
+                    <div class="card-img"
+                        style="background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%); height: 150px; flex: none;">
+                    </div>
+                    <div style="padding-top: 1rem;">
+                        <h3>Zone 2 LISS</h3>
+                        <p>Steady state for fat burn. Very chill.</p>
+                    </div>
+                </div>
+                <div class="card" onclick="openCardioModal('HIIT')">
+                    <div class="card-img"
+                        style="background-image: linear-gradient(120deg, #4facfe 0%, #00f2fe 100%); height: 150px; flex: none;">
+                    </div>
+                    <div style="padding-top: 1rem;">
+                        <h3>HIIT Sprints</h3>
+                        <p>Fast paced intervals. High energy!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Coach Section -->
+        <div id="ai-coach" class="section">
+            <div class="glass-header">
+                <div class="header">
+                    <h1>Your AI Friend</h1>
+                    <p>Ask me anything! Use "friendly" language.</p>
+                </div>
+                <div class="header-bg-icon">🤖</div>
+            </div>
+
+            <div class="chat-container">
+                <div class="chat-messages" id="fullChatMessages">
+                    <div class="message bot">
+                        <strong>FitBot</strong><br>
+                        Hey there! 👋 I'm so excited to help you on your fitness journey.
+                        <br><br>
+                        What's on your mind today?
+                        <br>✨ Workout ideas
+                        <br>🥑 Yummy healthy food
+                        <br>🤕 Recovery tips
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" class="chat-input" id="fullChatInput" placeholder="Type a friendly message..."
+                        onkeypress="handleFullChatKeyPress(event)">
+                    <button class="chat-send" onclick="sendFullMessage()">➤</button>
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+        <!-- Desi Food Ninja Section -->
+        <div id="desi-ninja" class="section">
+            <div class="glass-header">
+                <div class="header">
+                    <h1>Desi Food Ninja 🥷</h1>
+                    <p>Know your Roti, Dal, and Samosa macro-secrets.</p>
+                </div>
+                <div class="header-bg-icon">🍛</div>
+            </div>
+
+            <div style="max-width: 600px; margin: 0 auto;">
+                <input type="text" id="foodSearchInput" placeholder="Search for Roti, Paneer, Dal..."
+                    style="width: 100%; padding: 1.5rem; border-radius: 50px; border: 1px solid var(--border-highlight); background: rgba(255,255,255,0.05); color: white; font-size: 1.2rem; outline: none; box-shadow: 0 4px 20px rgba(0,0,0,0.3); transition: all 0.3s;"
+                    oninput="handleFoodSearch(this.value)">
+
+                <div id="foodSearchResults" style="margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem;">
+                    <!-- Results injected here -->
+                    <div style="text-align: center; color: var(--text-muted); margin-top: 2rem;">
+                        <p>Type above to find out if your snack is a <br><strong>Protein Powerhouse</strong> or a
+                            <strong>Calorie Bomb</strong>! 💣
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Exercise Modal -->
+    <div class="exercise-modal" id="exerciseModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">×</button>
+            <h2 id="modalTitle"
+                style="margin-bottom: 2rem; font-weight: 800; font-size: 2.5rem; background: linear-gradient(90deg, #fff, #bbb); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                Exercises</h2>
+            <div id="exerciseList">
+                <!-- Populated by JS -->
+            </div>
+            <!-- Video Modal -->
+            <div class="exercise-modal" id="videoModal" style="z-index: 200;">
+                <div class="modal-content"
+                    style="width: 900px; padding: 0; background: black; border: 1px solid var(--border-highlight); overflow: hidden;">
+                    <div
+                        style="padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle);">
+                        <h3 id="videoTitle" style="margin: 0; font-size: 1.25rem;">Exercise Demo</h3>
+                        <button onclick="closeVideoPlayer()"
+                            style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;">×</button>
+                    </div>
+                    <div style="position: relative; padding-bottom: 56.25%; height: 0;">
+                        <iframe id="videoFrame"
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+                            allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+
+
+                // Exercise Data with Video IDs (YouTube)
+                // Exercise Database with Video IDs
+                const exercisesDB = {
+                    'Chest': [
+                        { name: 'Barbell Bench Press', sets: '3 sets', reps: '5-8 reps', video: 'rT7DgCr-3pg' },
+                        { name: 'Incline Dumbbell Press', sets: '3 sets', reps: '8-12 reps', video: '8iPEnn-ltC8' },
+                        { name: 'Cable Flyes', sets: '3 sets', reps: '12-15 reps', video: 'Iwe6AmxVf7o' },
+                        { name: 'Dips', sets: '3 sets', reps: 'Failure', video: '2z8JmcrW-As' }
+                    ],
+                    'Back': [
+                        { name: 'Deadlift', sets: '3 sets', reps: '5 reps', video: 'op9kVnSso6Q' },
+                        { name: 'Pull-Ups', sets: '3 sets', reps: 'Failure', video: 'eGo4IYlbE5g' },
+                        { name: 'Barbell Row', sets: '3 sets', reps: '8-10 reps', video: '9efgcAjQe7E' },
+                        { name: 'Face Pulls', sets: '3 sets', reps: '15-20 reps', video: 'rep-EmOLzZKdy7q' }
+                    ],
+                    'Legs': [
+                        { name: 'Squat', sets: '3 sets', reps: '5 reps', video: 'gcNh17Ckjgg' },
+                        { name: 'Romanian Deadlift', sets: '3 sets', reps: '8-10 reps', video: 'JCXUYuzwNrM' },
+                        { name: 'Leg Press', sets: '3 sets', reps: '10-12 reps', video: 'IZxyjW7MPJQ' },
+                        { name: 'Calf Raises', sets: '4 sets', reps: '15-20 reps', video: '-M4-G8p8fmc' }
+                    ],
+                    'Shoulders': [
+                        { name: 'Overhead Press', sets: '3 sets', reps: '5-8 reps', video: '2yjwXTZQDDI' },
+                        { name: 'Lateral Raises', sets: '4 sets', reps: '12-15 reps', video: '3VcKaXpzqRo' },
+                        { name: 'Rear Delt Flyes', sets: '3 sets', reps: '12-15 reps', video: '0GfUpZUZS7' }
+                    ],
+                    'Arms': [
+                        { name: 'Barbell Curl', sets: '3 sets', reps: '8-12 reps', video: 'kwG2ipFRgfo' },
+                        { name: 'Tricep Pushdown', sets: '3 sets', reps: '10-15 reps', video: '2-LAMcpzODU' },
+                        { name: 'Hammer Curls', sets: '3 sets', reps: '10-12 reps', video: 'zC3nLlEvin4' }
+                    ],
+                    'Core': [
+                        { name: 'Plank', sets: '3 sets', reps: '60 sec', video: 'pSHjTRCQxIw' },
+                        { name: 'Hanging Leg Raises', sets: '3 sets', reps: '10-15 reps', video: 'Pr1ieGZ5TkI' },
+                        { name: 'Russian Twists', sets: '3 sets', reps: '20 reps', video: 'wkD8rjkodUI' }
+                    ]
+                };
+
+                function openExerciseModal(cardId) {
+                    const modal = document.getElementById('exerciseModal');
+                    const title = document.getElementById('modalTitle');
+                    const list = document.getElementById('exerciseList');
+
+                    title.innerText = cardId + ' Workout';
+                    list.innerHTML = ''; // Clear previous
+
+                    const exercises = exercisesDB[cardId];
+                    if (exercises) {
+                        exercises.forEach(ex => {
+                            const div = document.createElement('div');
+                            div.className = 'exercise-item';
+                            div.onclick = () => openVideoPlayer(ex.name, ex.video); // Click to play video
+                            div.innerHTML = `
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h4 style="margin-bottom: 0.25rem; font-size: 1.1rem;">${ex.name}</h4>
+                                <span style="font-size: 0.85rem; color: var(--text-muted);">${ex.sets} • ${ex.reps}</span>
+                            </div>
+                            <div style="color: var(--accent-secondary); font-size: 1.2rem;">▶</div>
+                        </div>
+                    `;
+                            list.appendChild(div);
+                        });
+                    } else {
+                        list.innerHTML = '<p>Workout coming soon...</p>';
+                    }
+
+                    modal.style.display = 'flex';
+                }
+
+                function closeModal() {
+                    document.getElementById('exerciseModal').style.display = 'none';
+                }
+
+                // Video Player Logic
+                function openVideoPlayer(title, videoId) {
+                    const videoModal = document.getElementById('videoModal');
+                    const videoFrame = document.getElementById('videoFrame');
+                    const videoTitle = document.getElementById('videoTitle');
+
+                    videoTitle.innerText = title;
+                    videoFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+
+                    videoModal.style.display = 'flex';
+                }
+
+                function closeVideoPlayer() {
+                    const videoModal = document.getElementById('videoModal');
+                    const videoFrame = document.getElementById('videoFrame');
+
+                    videoModal.style.display = 'none';
+                    videoFrame.src = ''; // Stop video
+                }
+                function switchSection(sectionId, navItem) {
+                    // Hide all sections
+                    document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+                    // Deactivate all nav items
+                    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+
+                    // Show target section
+                    document.getElementById(sectionId).classList.add('active');
+                    // Activate clicked nav item
+                    navItem.classList.add('active');
+                }
+
+                // --- DIET ENGINE ---
+                function calculateDiet() {
+                    // 1. Get Inputs
+                    const age = parseFloat(document.getElementById('age').value);
+                    const gender = document.getElementById('gender').value;
+                    const height = parseFloat(document.getElementById('height').value);
+                    const weight = parseFloat(document.getElementById('weight').value);
+                    const activity = parseFloat(document.getElementById('activity').value);
+                    const goal = document.getElementById('goal').value;
+                    const preference = document.getElementById('preference').value;
+
+                    if (!age || !height || !weight) {
+                        alert("Please fill in all details correctly!");
+                        return;
+                    }
+
+                    // 2. BMI Calculation
+                    const heightM = height / 100;
+                    const bmi = (weight / (heightM * heightM)).toFixed(1);
+                    let bmiStatus = "Healthy";
+                    if (bmi < 18.5) bmiStatus = "Underweight";
+                    else if (bmi >= 25 && bmi < 29.9) bmiStatus = "Overweight";
+                    else if (bmi >= 30) bmiStatus = "Obese";
+
+                    // 3. BMR Calculation (Mifflin-St Jeor)
+                    let bmr = 0;
+                    if (gender === 'male') {
+                        bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+                    } else {
+                        bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+                    }
+
+                    // 4. TDEE & Goal Adjustment
+                    let tdee = bmr * activity;
+                    let targetCalories = tdee;
+
+                    if (goal === 'fat_loss') targetCalories = tdee - 500;
+                    else if (goal === 'muscle_gain') targetCalories = tdee + 300;
+
+                    targetCalories = Math.round(targetCalories);
+
+                    // 5. Macros (Approx 30% P, 40% C, 30% F for balanced gain/loss)
+                    const protein = Math.round((targetCalories * 0.3) / 4);
+                    const carbs = Math.round((targetCalories * 0.4) / 4);
+                    const fats = Math.round((targetCalories * 0.3) / 9);
+
+                    // 6. Generate Indian Plan
+                    const plan = generateIndianPlan(preference, targetCalories, goal);
+
+                    // 7. Render Results
+                    document.getElementById('res-calories').innerText = targetCalories;
+
+                    document.getElementById('res-protein').innerText = protein + 'g';
+                    document.getElementById('bar-protein').style.width = '30%'; // Approx
+
+                    document.getElementById('res-carbs').innerText = carbs + 'g';
+                    document.getElementById('bar-carbs').style.width = '40%'; // Approx
+
+                    document.getElementById('res-fats').innerText = fats + 'g';
+                    document.getElementById('bar-fats').style.width = '30%'; // Approx
+
+                    document.getElementById('res-bmi').innerText = bmi;
+                    document.getElementById('res-status').innerText = bmiStatus;
+
+                    const mealContainer = document.getElementById('meal-container');
+                    mealContainer.innerHTML = '';
+
+                    plan.forEach(meal => {
+                        const card = document.createElement('div');
+                        card.className = 'card';
+                        card.style.height = 'auto';
+
+                        // Color code meals
+                        let tagColor = 'rgba(112, 0, 255, 0.2)';
+                        if (meal.type === 'Lunch') tagColor = 'rgba(0, 195, 255, 0.2)';
+                        if (meal.type === 'Pre-Workout') tagColor = 'rgba(255, 0, 128, 0.2)';
+                        if (meal.type === 'Dinner') tagColor = 'rgba(0, 255, 128, 0.2)';
+
+                        card.innerHTML = `
+                    <h3>${meal.type}</h3>
+                    <p style="margin-top: 0.5rem; font-size: 1.1rem; color: white;"><strong>${meal.item}</strong></p>
+                    <p style="margin-top: 0.25rem; font-size: 0.9rem;">${meal.desc}</p>
+                    <div class="pill-tag" style="background: ${tagColor}; position: static; display: inline-block; margin-top: 1rem;">${meal.tag}</div>
+                `;
+                        mealContainer.appendChild(card);
+                    });
+
+                    // UI Switch
+                    document.getElementById('diet-input-form').style.display = 'none';
+                    document.getElementById('diet-result').style.display = 'block';
+                }
+
+                function generateIndianPlan(pref, calories, goal) {
+                    // Simplified logic for prototype - scales portions conceptualy
+                    // Base items change on preference
+                    const isVeg = pref === 'veg';
+                    const isEgg = pref === 'egg';
+                    const isNonVeg = pref === 'non_veg';
+
+                    let breakfast, lunch, snack, dinner;
+
+                    if (isVeg) {
+                        breakfast = { item: "Paneer Paratha (2) + Curd", desc: "Start with casein protein & healthy fats." };
+                        lunch = { item: "Dal Makhani + 2 Roti + Salad", desc: "Complete amino profile with grains + lentils." };
+                        dinner = { item: "Soya Chunks Stir Fry", desc: "Light, high protein source for night." };
+                    } else if (isEgg) {
+                        breakfast = { item: "3 Whole Eggs Omelette + Toast", desc: "Bioavailable protein to kickstart metabolism." };
+                        lunch = { item: "Egg Curry + Rice (Jeera)", desc: "Moderate carbs for energy." };
+                        dinner = { item: "Scrambled Eggs (Bhurji) + Salad", desc: "Low carb high protein." };
+                    } else {
+                        breakfast = { item: "Chicken Sausages + Toast", desc: "Lean protein breakfast." };
+                        lunch = { item: "Chicken Curry + 2 Roti", desc: "Staple muscle building meal." };
+                        dinner = { item: "Grilled Fish / Roast Chicken", desc: "Pure protein source, minimal carbs." };
+                    }
+
+                    // Adjust based on goal (Add ons)
+                    if (goal === 'muscle_gain') {
+                        snack = { item: "Banana Shake + Peanut Butter", desc: "Calorie dense liquid nutrition." };
+                        lunch.desc += " Added Ghee.";
+                    } else {
+                        snack = { item: "Green Tea + Roasted Chana", desc: "Low calorie hunger killer." };
+                        lunch.desc += " Reduced Oil.";
+                    }
+
+                    return [
+                        { type: 'Breakfast', item: breakfast.item, desc: breakfast.desc, tag: 'Start' },
+                        { type: 'Lunch', item: lunch.item, desc: lunch.desc, tag: 'Power' },
+                        { type: 'Pre-Workout / Snack', item: snack.item, desc: snack.desc, tag: 'Fuel' },
+                        { type: 'Dinner', item: dinner.item, desc: dinner.desc, tag: 'Recovery' }
+                    ];
+                }
+
+                // Modal Logic
+                function openExerciseModal(group) {
+                    document.getElementById('modalTitle').textContent = group;
+                    const list = document.getElementById('exerciseList');
+                    list.innerHTML = '';
+
+                    const exercises = exercisesDB[group] || [];
+                    exercises.forEach((ex, index) => {
+                        const item = document.createElement('div');
+                        item.className = 'exercise-item';
+                        item.onclick = (e) => {
+                            // Prevent closing if clicking inside video
+                            if (e.target.closest('.video-container')) return;
+                            toggleVideo(index, ex.video);
+                        };
+
+                        item.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <div>
+                            <div style="font-weight: 700; font-size: 1.15rem; margin-bottom: 0.2rem;">${ex.name}</div>
+                            <div style="color: var(--text-muted); font-size: 0.95rem;">${ex.sets} Sets • ${ex.reps} Reps</div>
+                        </div>
+                        <div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(112, 0, 255, 0.1); display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">▶</div>
+                    </div>
+                    <div id="video-${index}" class="video-container" style="display: none; width: 100%; margin-top: 1.5rem; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                        <!-- Video injected here -->
+                    </div>
+                `;
+                        list.appendChild(item);
+                    });
+
+                    document.getElementById('exerciseModal').style.display = 'flex';
+                }
+
+                function openCardioModal(type) {
+                    const modal = document.getElementById('exerciseModal');
+                    const title = document.getElementById('modalTitle');
+                    const list = document.getElementById('exerciseList');
+
+                    title.innerText = type === 'LISS' ? 'Zone 2 Cardio' : 'HIIT Sprints';
+                    title.style.background = type === 'LISS'
+                        ? 'linear-gradient(120deg, #f093fb, #f5576c)'
+                        : 'linear-gradient(120deg, #4facfe, #00f2fe)';
+                    title.style.webkitBackgroundClip = 'text';
+
+                    list.innerHTML = '';
+
+                    const cardioData = {
+                        'LISS': [
+                            { name: 'Incline Walk', duration: '30-45 mins', intensity: 'Low (Zone 2)' },
+                            { name: 'Cycling', duration: '45 mins', intensity: 'Steady State' },
+                            { name: 'Elliptical', duration: '30 mins', intensity: 'Easy Pace' }
+                        ],
+                        'HIIT': [
+                            { name: 'Treadmill Sprints', duration: '15 mins', intensity: 'Max Effort (30s on/30s off)' },
+                            { name: 'Jump Rope', duration: '10 mins', intensity: 'High Intensity' },
+                            { name: 'Burpees', duration: '5 sets', intensity: 'Death' }
+                        ]
+                    };
+
+                    const workouts = cardioData[type];
+                    workouts.forEach(w => {
+                        const div = document.createElement('div');
+                        div.className = 'exercise-item';
+                        div.style.cursor = 'default';
+                        div.innerHTML = `
+                             <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <h4 style="margin-bottom: 0.25rem; font-size: 1.1rem;">${w.name}</h4>
+                                    <span style="font-size: 0.85rem; color: var(--text-muted);">${w.duration} • ${w.intensity}</span>
+                                </div>
+                                <div style="color: var(--accent-secondary); font-size: 1.2rem;">🔥</div>
+                            </div>
+                        `;
+                        list.appendChild(div);
+                    });
+
+                    modal.style.display = 'flex';
+                }
+
+                function toggleVideo(index, videoId) {
+                    const container = document.getElementById(`video-${index}`);
+                    const allContainers = document.querySelectorAll('.video-container');
+
+                    // Close others
+                    allContainers.forEach(c => {
+                        if (c.id !== `video-${index}`) {
+                            c.style.display = 'none';
+                            c.innerHTML = '';
+                        }
+                    });
+
+                    if (container.style.display === 'none') {
+                        container.style.display = 'block';
+                        container.innerHTML = `
+                    <iframe width="100%" height="400" src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                `;
+                    } else {
+                        container.style.display = 'none';
+                        container.innerHTML = '';
+                    }
+                }
+
+                function closeModal() {
+                    document.getElementById('exerciseModal').style.display = 'none';
+                    // Stop videos
+                    document.getElementById('exerciseList').innerHTML = '';
+                }
+
+                // Chatbot Logic
+                function handleKeyPress(e) {
+                    if (e.key === 'Enter') sendMessage();
+                }
+
+                function sendMessage() {
+                    const input = document.getElementById('chatInput');
+                    const text = input.value.trim();
+                    if (!text) return;
+
+                    // Add User Message
+                    addMessage(text, 'user');
+                    input.value = '';
+
+                    // Simulated AI Response
+                    setTimeout(() => {
+                        const response = getSimulatedResponse(text);
+                        addMessage(response, 'bot');
+                    }, 600);
+                }
+
+                function addMessage(text, sender) {
+                    const container = document.getElementById('chatMessages');
+                    const div = document.createElement('div');
+                    div.className = `message ${sender}`;
+                    div.innerText = text;
+                    container.appendChild(div);
+                    container.scrollTop = container.scrollHeight;
+                }
+
+                function getSimulatedResponse(text) {
+                    text = text.toLowerCase();
+                    if (text.includes('protein')) return "For muscle building, aim for 1.6-2.2g of protein per kg of bodyweight daily. Good sources: Chicken, Paneer, Lentils, Eggs.";
+                    if (text.includes('weight loss') || text.includes('fat')) return "create a calorie deficit of 300-500 kcal. Prioritize protein to retain muscle and high-fiber foods to stay full.";
+                    if (text.includes('rest') || text.includes('recovery')) return "Sleep is crucial! Aim for 7-9 hours. Active recovery like walking helps blood flow without adding stress.";
+                    if (text.includes('squat')) return "Keep your chest up, back straight, and drive through your heels. Depth should be at least parallel.";
+
+                    return "That's a great question! Fitness is a journey. Could you be more specific so I can give you the best advice?";
+                }
+
+                // Full AI Chatbot Logic
+                function handleFullChatKeyPress(e) {
+                    if (e.key === 'Enter') sendFullMessage();
+                }
+
+                function sendFullMessage() {
+                    const input = document.getElementById('fullChatInput');
+                    const text = input.value.trim();
+                    if (!text) return;
+
+                    addFullMessage(text, 'user');
+                    input.value = '';
+
+                    // Loading state
+                    const loadingId = addFullMessage('Thinking...', 'bot', true);
+
+                    setTimeout(() => {
+                        const response = getAIResponse(text);
+                        updateFullMessage(loadingId, response);
+                    }, 800);
+                }
+
+                function addFullMessage(text, sender, isLoading = false) {
+                    const container = document.getElementById('fullChatMessages');
+                    const div = document.createElement('div');
+                    const id = 'msg-' + Date.now();
+                    div.id = id;
+                    div.className = `message ${sender}`;
+
+                    if (sender === 'bot') {
+                        div.innerHTML = `<strong>FitBot AI</strong><br>${text}`;
+                    } else {
+                        div.innerText = text;
+                    }
+
+                    if (isLoading) div.style.opacity = 0.7;
+
+                    container.appendChild(div);
+                    container.scrollTop = container.scrollHeight;
+                    return id;
+                }
+
+                function updateFullMessage(id, text) {
+                    const div = document.getElementById(id);
+                    if (div) {
+                        div.innerHTML = `<strong>FitBot AI</strong><br>${text}`;
+                        div.style.opacity = 1;
+                    }
+                }
+
+                // Expanded Knowledge Base & Personality
+                const knowledgeBase = {
+                    greetings: [
+                        "Hey there! 💪 Ready to crush some goals today?",
+                        "Hello! I'm FitBot. Ask me about workouts, diet, or recovery!",
+                        "Hi! Let's get you stronger. What's on your mind?"
+                    ],
+                    muscle_building: "To build muscle (hypertrophy), focus on these pillars:\n1. **Volume & Tension**: 10-20 hard sets per muscle/week. Control the eccentric (lowering) phase.\n2. **Progressive Overload**: Add weight or reps every session.\n3. **Protein**: 1.6-2.2g per kg bodyweight. (e.g., 70kg person needs ~140g).\n4. **Sleep**: Growth happens when you sleep, not when you train. Aim for 7-9 hours.",
+                    fat_loss: "Fat loss is simple math but hard execution:\n1. **Calorie Deficit**: Eat slightly less than you burn (TDEE - 300kcal).\n2. **High Protein**: Keeps you full and spares muscle.\n3. **NEAT**: Walk 8k-10k steps daily. It's the easiest way to burn fat without fatigue.\n4. **Lift Heavy**: Don't just do cardio. Lifting signals your body to keep muscle while burning fat.",
+                    indian_diet: "The **Indian Diet Protocol** for fitness:\n- **Protein Sources**: Paneer, Soya Chunks, Tofu, Dal (combine with Rice), Chickpeas, Greek Yoga, Chicken, Fish, Eggs.\n- **Carbs**: Roti (Multigrain is best), Basmati Rice, Oats, Sweet Potato.\n- **Fats**: Ghee (in moderation), Mustard Oil, Almonds, Walnuts.\n- **Tip**: Our curries can be calorie bombs. Reduce oil and cream. Focus on the protein chunks!",
+                    supplements: "Supplements are just the cherry on top. Fix your diet first! 🍒\n\n**The Tier 1 List:**\n1. **Creatine Monohydrate**: (3-5g/day) Verification needed? It works. Increases strength and muscle volume.\n2. **Whey Protein**: Convenient for hitting targets.\n3. **Multivitamin**: Covers micronutrient gaps.\n4. **Caffeine**: Great pre-workout fuel.",
+                    injury: "⚠️ **Listen to your body!**\nIf it hurts (sharp pain), STOP.\n1. **Rest**: Don't push through bad pain.\n2. **Ice/Heat**: Ice for new swelling, Heat for stiffness.\n3. **Substitute**: Can't Squat? Try Leg Press. Can't Bench? Try Floor Press.\n4. **See a Pro**: If pain lasts >3 days, see a physiotherapist.",
+                    creatine: "Creatine is the MVP. 🏆\n- **What**: Recycles energy (ATP) for explosive lifts.\n- **Dose**: 5g daily, anytime.\n- **Side Effects**: Slight water weight (in the muscle, which looks good!). No, it won't hurt your kidneys unless you have pre-existing issues.",
+                    protein: "Protein is the building block. 🧱\n- **Goal**: 1.6-2.2g per kg of bodyweight.\n- **Timing**: Total daily intake matters most, but spreading it across 3-4 meals helps absorption.\n- **Vegans**: Combine grains + legumes (Rice + Dal) to get a complete amino profile.",
+                    sleep: "Sleep is the best pre-workout. 😴\n- **Growth Hormone**: Peaks during deep sleep.\n- **CNS Recovery**: Your nerves need rest to fire hard again.\n- **Lack of Sleep**: Increases cortisol (stress) and kills gains. Prioritize it like a workout."
+                };
+
+                const workoutPlans = {
+                    push: "**Push Day (Chest/Shoulders/Triceps):**\n1. Bench Press: 3x5-8\n2. Overhead Press: 3x8-12\n3. Incline Dumbbell Press: 3x10-12\n4. Lateral Raises: 4x15-20\n5. Tricep Pushdowns: 3x12-15",
+                    pull: "**Pull Day (Back/Biceps):**\n1. Deadlift: 3x5\n2. Pull-Ups: 3xFailure\n3. Barbell Rows: 3x8-10\n4. Face Pulls: 3x15-20\n5. Barbell Curls: 3x10-12\n6. Hammer Curls: 3x12-15",
+                    legs: "**Leg Day (Quads/Hams/Glutes):**\n1. Squat: 3x5-8\n2. Romanian Deadlift: 3x8-10\n3. Leg Press: 3x10-12\n4. Leg Extensions: 3x15-20\n5. Calf Raises: 4x15-20"
+                };
+
+                function getAIResponse(input) {
+                    const text = input.toLowerCase();
+
+                    // 1. Greetings
+                    if (text.match(/\b(hi|hello|hey|yo|greetings)\b/))
+                        return knowledgeBase.greetings[Math.floor(Math.random() * knowledgeBase.greetings.length)];
+
+                    // 2. Core Concepts
+                    if (text.match(/muscle|build|grow|bulk|hypertrophy|gains/)) return knowledgeBase.muscle_building;
+                    if (text.match(/fat|loss|weight|cut|lean|shred|burn/)) return knowledgeBase.fat_loss;
+                    if (text.match(/indian|veg|paneer|dal|roti|desi/)) return knowledgeBase.indian_diet;
+                    if (text.match(/sleep|rest|recovery|tired|insomnia/)) return knowledgeBase.sleep;
+
+                    // 3. Supplements
+                    if (text.match(/supplement|creatine|whey|bcaa|pre-workout/)) {
+                        if (text.includes('creatine')) return knowledgeBase.creatine;
+                        return knowledgeBase.supplements;
+                    }
+
+                    // 4. Injury/Pain
+                    if (text.match(/pain|hurt|injury|injured|ache|sore/)) return knowledgeBase.injury;
+
+                    // 5. Nutrition Specifics
+                    if (text.match(/protein|macros|carbs|fats|calorie/)) return knowledgeBase.protein;
+
+                    // 6. Workout Requests
+                    if (text.includes('push')) return workoutPlans.push;
+                    if (text.includes('pull') && !text.includes('pull-up')) return workoutPlans.pull; // distinguish from exercise
+                    if (text.includes('leg') && !text.includes('raise')) return workoutPlans.legs;
+
+                    // 7. Exercise Form Tips
+                    if (text.includes('bench')) return "benching tips: \nRetract your scapula (squeeze shoulder blades), arch your lower back slightly, and drive your feet into the floor. Lower the bar to your sternum, not your neck.";
+                    if (text.includes('squat')) return "Squat tips: \nKeep your chest up, brace your core like someone is about to punch you, and drive your knees out. Hit depth (parallel) for full activation.";
+                    if (text.includes('deadlift')) return "Deadlift tips: \nBar over mid-foot. Hips lower than shoulders. Pull the slack out of the bar before you lift. Keep your back neutral!";
+
+                    // 8. Fallback: Contextual Database Search
+                    for (const group in exercisesDB) {
+                        if (text.includes(group.toLowerCase())) {
+                            const exs = exercisesDB[group].map(e => e.name).join(', ');
+                            return `For **${group}**, try these exercises: ${exs}.\n\nNeed a specific plan? Just ask for a '${group} workout'!`;
+                        }
+                    }
+
+                    return "That's a great question! I'm trained on Strength, Hypertrophy, and Nutrition. \n\nTry asking me about:\n- 'How to lose fat'\n- 'Indian diet tips'\n- 'Creatine'\n- 'Push day workout'";
+                }
+
+                const indianFoodDB = [
+                    { name: "Roti (Tawa)", cal: 104, p: 3, c: 20, f: 0.5, serve: "1 medium", desc: "The classic. 2-3 are fine, 6 is a party." },
+                    { name: "Butter Naan", cal: 260, p: 6, c: 40, f: 10, serve: "1 piece", desc: "Delicious, but mostly flour and butter. Cheat meal item!" },
+                    { name: "Paratha (Aloo)", cal: 180, p: 4, c: 30, f: 6, serve: "1 medium", desc: "Carb city. Needs curd to balance the protein." },
+                    { name: "Dal Makhani", cal: 280, p: 10, c: 25, f: 16, serve: "1 bowl (150g)", desc: "Creamy heaven. High fat, decent protein." },
+                    { name: "Yellow Dal (Tadka)", cal: 140, p: 9, c: 18, f: 4, serve: "1 bowl (150g)", desc: "The leanest dal. Staple for muscle building." },
+                    { name: "Paneer Butter Masala", cal: 350, p: 12, c: 15, f: 28, serve: "1 bowl (150g)", desc: "Protein loaded, but calorie heavy due to cream." },
+                    { name: "Chana Masala", cal: 160, p: 8, c: 22, f: 5, serve: "1 bowl (150g)", desc: "Great fiber and protein source. Vegan friendly." },
+                    { name: "Rice (Basmati)", cal: 170, p: 3, c: 38, f: 0.5, serve: "1 bowl cooked", desc: "Pure fuel. Needs protein sidekick." },
+                    { name: "Chicken Biryani", cal: 360, p: 20, c: 45, f: 12, serve: "1 plate (small)", desc: "The king of cheat meals. Actually decent macros if homemade." },
+                    { name: "Idli", cal: 40, p: 2, c: 8, f: 0, serve: "1 piece", desc: "Steamed goodness. Eat 4-5 for a full meal." },
+                    { name: "Masala Dosa", cal: 350, p: 6, c: 55, f: 12, serve: "1 large", desc: "Crispy carb lover. Potato filling adds the calories." },
+                    { name: "Samosa", cal: 260, p: 4, c: 25, f: 16, serve: "1 piece", desc: "Triangle of death. 1 is okay, 2 is a regret." },
+                    { name: "Gulab Jamun", cal: 150, p: 2, c: 20, f: 8, serve: "1 piece", desc: "Sugar bomb. Post-workout? Maybe." },
+                    { name: "Chai (with Sugar)", cal: 60, p: 1, c: 10, f: 2, serve: "1 cup", desc: "Liquid comfort. Watch the sugar spoons." }
+                ];
+
+                function handleFoodSearch(query) {
+                    const container = document.getElementById('foodSearchResults');
+                    const text = query.toLowerCase().trim();
+                    container.innerHTML = '';
+
+                    if (!text) {
+                        container.innerHTML = `<div style="text-align: center; color: var(--text-muted); margin-top: 2rem;"><p>Type above to find out if your snack is a <br><strong>Protein Powerhouse</strong> or a <strong>Calorie Bomb</strong>! 💣</p></div>`;
+                        return;
+                    }
+
+                    const results = indianFoodDB.filter(food => food.name.toLowerCase().includes(text));
+
+                    if (results.length === 0) {
+                        container.innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 2rem;">No food found! Maybe it's too exotic? 🤷‍♂️</div>`;
+                        return;
+                    }
+
+                    results.forEach(food => {
+                        const div = document.createElement('div');
+                        div.className = 'exercise-item'; // Reuse existing class for style
+                        div.style.cursor = 'pointer';
+                        div.innerHTML = `
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <div>
+                                <h3 style="margin: 0; font-size: 1.2rem; color: #fff;">${food.name}</h3>
+                                <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.2rem;">Serving: ${food.serve}</div>
+                                <div style="font-size: 0.8rem; color: var(--accent-secondary); margin-top: 0.4rem; font-style: italic;">"${food.desc}"</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: white;">${food.cal} <span style="font-size: 0.9rem; font-weight: 400; color: var(--text-muted);">kcal</span></div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                            <div style="flex: 1; background: rgba(0, 195, 255, 0.1); padding: 0.5rem; border-radius: 8px; text-align: center;">
+                                <div style="font-size: 0.8rem; color: var(--text-muted);">PROTEIN</div>
+                                <div style="font-weight: 700; color: #00c3ff;">${food.p}g</div>
+                            </div>
+                            <div style="flex: 1; background: rgba(112, 0, 255, 0.1); padding: 0.5rem; border-radius: 8px; text-align: center;">
+                                <div style="font-size: 0.8rem; color: var(--text-muted);">CARBS</div>
+                                <div style="font-weight: 700; color: #7000ff;">${food.c}g</div>
+                            </div>
+                            <div style="flex: 1; background: rgba(255, 0, 128, 0.1); padding: 0.5rem; border-radius: 8px; text-align: center;">
+                                <div style="font-size: 0.8rem; color: var(--text-muted);">FATS</div>
+                                <div style="font-weight: 700; color: #ff0080;">${food.f}g</div>
+                            </div>
+                        </div>
+                    `;
+                        container.appendChild(div);
+                    });
+                }
+
+                // Initialize Desi Food Ninja
+                handleFoodSearch('');
+
+                // Gamification: Streak Logic
+                (function checkStreak() {
+                    const today = new Date().toDateString();
+                    const lastVisit = localStorage.getItem('lastVisit');
+                    let streak = parseInt(localStorage.getItem('streakCount') || '0');
+
+                    if (lastVisit !== today) {
+                        const yesterday = new Date();
+                        yesterday.setDate(yesterday.getDate() - 1);
+
+                        if (lastVisit === yesterday.toDateString()) {
+                            streak++;
+                        } else {
+                            streak = 1; // Reset or Start new
+                        }
+
+                        localStorage.setItem('lastVisit', today);
+                        localStorage.setItem('streakCount', streak);
+                    }
+
+                    const streakEl = document.getElementById('streak-count');
+                    if (streakEl) streakEl.innerText = streak;
+                })();
+            </script>
+</body>
+
+</html>

@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitaura – Training That Adapts to You</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-deep: #050505;
+            --bg-surface: #0a0a0a;
+            --bg-glass: rgba(20, 20, 20, 0.4);
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-highlight: rgba(255, 255, 255, 0.15);
+
+            --text-primary: #f2f2f2;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+
+            --accent: #e2e2e2;
+            --accent-gradient: linear-gradient(135deg, #e2e2e2 0%, #a0a0a0 100%);
+
+            --font-sans: 'Outfit', sans-serif;
+            --font-serif: 'Playfair Display', serif;
+
+            --spacing-container: 1400px;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            background-image:
+                radial-gradient(circle at 15% 50%, rgba(40, 40, 40, 0.05), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(50, 50, 50, 0.05), transparent 25%);
+        }
+
+        /* Subtle Noise Texture */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .container {
+            max-width: var(--spacing-container);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .container-narrow {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(5, 5, 5, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-content {
+            max-width: var(--spacing-container);
+            margin: 0 auto;
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-img {
+            height: 48px;
+            width: auto;
+            border-radius: 8px;
+            /* Slight rounding if needed */
+        }
+
+        .logo-text {
+            font-family: var(--font-sans);
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .btn-primary {
+            background: var(--text-primary);
+            color: var(--bg-deep);
+            padding: 0.9rem 2rem;
+            border-radius: 2px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            padding: 0.9rem 2rem;
+            border-radius: 2px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border: 1px solid var(--border-highlight);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        .hero-content {
+            z-index: 10;
+        }
+
+        .hero-tagline {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            display: inline-block;
+            border: 1px solid var(--border-subtle);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+        }
+
+        .hero h1 {
+            font-family: var(--font-sans);
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 300;
+            line-height: 1.05;
+            letter-spacing: -0.04em;
+            margin-bottom: 2rem;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+            background: linear-gradient(to bottom right, #ffffff, #888888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 4rem;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        /* Generic Section Styles */
+        section {
+            padding: 10rem 0;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .section-title {
+            font-family: var(--font-sans);
+            font-size: 3rem;
+            font-weight: 300;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 2rem;
+        }
+
+        .section-description {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 700px;
+        }
+
+        /* Cards/Grid */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .card {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-subtle);
+            padding: 3rem;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .card:hover {
+            border-color: var(--border-highlight);
+            transform: translateY(-5px);
+            background: rgba(30, 30, 30, 0.4);
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            opacity: 0.8;
+        }
+
+        .card h3,
+        .card h4 {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Calibra Feature */
+        .calibra-section {
+            background: radial-gradient(circle at center, rgba(30, 30, 30, 0.3), transparent 70%);
+        }
+
+        /* Steps */
+        .step {
+            display: grid;
+            grid-template-columns: 60px 1fr;
+            gap: 3rem;
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--border-subtle);
+            align-items: baseline;
+        }
+
+        .step:last-child {
+            border-bottom: none;
+        }
+
+        .step-number {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* Footer */
+        footer {
+            padding: 6rem 0 3rem;
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 6rem;
+        }
+
+        .footer-brand .logo-text {
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            max-width: 300px;
+        }
+
+        .footer-col h4 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-col a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-col a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 4rem;
+            }
+
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            /* Mobile menu simplified */
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .step {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <div class="logo-container">
+                <img src="logo.png" alt="Fitaura Logo" class="logo-img">
+                <span class="logo-text">Fitaura</span>
+            </div>
+            <div class="nav-links">
+                <a href="#calibra">The System</a>
+                <a href="#how-it-works">Process</a>
+                <a href="#philosophy">Philosophy</a>
+                <a href="app.html" class="btn-primary">Access Platform</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-tagline">Engineered for Longevity</div>
+            <h1>Precision Training<br>Without the Noise</h1>
+            <p class="hero-subtitle">An adaptive system that evolves with you. Quiet confidence, rigorous logic, and
+                sustainable progress.</p>
+            <div class="hero-cta">
+                <a href="app.html" class="btn-primary">Begin Assessment</a>
+                <button class="btn-secondary">Explore the Logic</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Props -->
+    <section class="value-props">
+        <div class="container">
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-icon">✦</div>
+                    <h3>Performance Responsive</h3>
+                    <p>Static plans fail because life is dynamic. Fitaura adjusts every session based on your real-time
+                        performance metrics.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">◎</div>
+                    <h3>Transparent Intelligence</h3>
+                    <p>No black boxes. We show you exactly why your load increased, or why your volume dropped. Radical
+                        transparency.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">∞</div>
+                    <h3>Infinite Sustainability</h3>
+                    <p>Training is a decades-long pursuit. Our autoregulation ensures you can train hard today and still
+                        train hard in ten years.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calibra Section -->
+    <section class="calibra-section" id="calibra">
+        <div class="container-narrow">
+            <span class="section-label">Proprietary Technology</span>
+            <h2 class="section-title">Powered by Calibra™</h2>
+            <p class="section-description">Most apps guess. Calibra calculates. Using a decision tree modeled after
+                elite strength coaches, it manages your fatigue and progressive overload with mathematical precision.
+            </p>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h4>Autoregulation Engine</h4>
+                    <p>Detects accumulated fatigue through RPE and recovery data, automatically scaling intensity to
+                        prevent burnout before it happens.</p>
+                </div>
+                <div class="card">
+                    <h4>Dynamic Injury Protocols</h4>
+                    <p>Report discomfort in any joint, and the system instantly re-routes your programming to effective,
+                        pain-free alternatives.</p>
+                </div>
+                <div class="card">
+                    <h4>The Transparency Layer</h4>
+                    <p>Every adjustment comes with a "Why". We don't just tell you what to lift; we teach you the
+                        principles of strength.</p>
+                </div>
+                <div class="card">
+                    <h4>Rule-Based Integrity</h4>
+                    <p>We reject the hype of "AI" magic. Calibra is built on transparent, falsifiable training logic
+                        that you can trust.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works">
+        <div class="container-narrow">
+            <span class="section-label">The Process</span>
+            <h2 class="section-title">Systematic Progression</h2>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>Execute & Record</h3>
+                        <p class="section-description">Complete your prescribed session. Log precise weights, reps,
+                            and—crucially—your Rate of Perceived Exertion (RPE). Accurate data is the fuel for accurate
+                            coaching.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>Quantify Recovery</h3>
+                        <p class="section-description">Biofeedback matters. Before every session, input sleep quality,
+                            soreness, and stress levels. Calibra weighs these variables to determine your daily
+                            readiness.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>Receive Adaptation</h3>
+                        <p class="section-description">Instantaneously, your plan evolves. Volume may drop to manage
+                            fatigue, or intensity may spike to capitalize on a peak performance window.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <h3>Understand the Logic</h3>
+                        <p class="section-description">Review the generated explanation. Understand the specific
+                            coaching principle applied to your session. Become an informed athlete.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ethics / Philosophy -->
+    <section id="philosophy" style="text-align: center;">
+        <div class="container-narrow">
+            <span class="section-label">Our Ethos</span>
+            <h2 class="section-title">Built for the Long Term</h2>
+            <p class="section-description" style="margin: 0 auto;">In an industry built on quick fixes and noise, we
+                choose silence and substance. We are for the dedicated, the patient, and the serious.</p>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="hero" style="min-height: 60vh;">
+        <div class="container hero-content">
+            <h2>Elevate Your Standard</h2>
+            <p class="hero-subtitle">Join the few who treat training as a discipline, not a chore.</p>
+            <div class="hero-cta">
+                <a href="app.html" class="btn-primary">Request Access</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <span class="logo-text">Fitaura</span>
+                    <p>Precision adaptive training for the modern athlete.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="#">The System</a></li>
+                        <li><a href="#">Methodology</a></li>
+                        <li><a href="#">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">Manifesto</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 Fitaura Systems. All rights reserved.</span>
+                <span>Designed for longevity.</span>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
